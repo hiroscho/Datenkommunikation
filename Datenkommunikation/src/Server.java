@@ -15,9 +15,15 @@ public class Server {
 				BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()))) {
 			String line;
 			ServerState state = new ServerState();
+			int escape = 0;
 			while (true) {
 				line = in.readLine();
-				if (Integer.parseInt(line) == -1) {
+				try {
+					escape = Integer.parseInt(line);
+				} catch (Exception e) {
+				}
+
+				if (escape == -1) {
 					break;
 				}
 				line = state.processCommand(line);

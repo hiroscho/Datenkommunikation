@@ -17,14 +17,22 @@ public class Client {
 				PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 				BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in))) {
-	
+
 			String line;
+			int escape = 0;
 			while (true) {
 				line = userInput.readLine();
 				out.println(line);
-				if (Integer.parseInt(line) == -1) {
+				
+				try {
+					escape = Integer.parseInt(line);
+				} catch (Exception e) {
+				}
+				
+				if (escape == -1) {
 					break;
 				}
+				
 				line = in.readLine();
 				System.out.println(line);
 			}
